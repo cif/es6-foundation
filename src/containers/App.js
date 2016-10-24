@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Counter from '../components/Counter';
-import { updateCounterAndPersist } from '../redux/counter';
+import { updateCounter as updateCounterAction } from '../redux/counter';
 
 export const App = (props) => {
   const { count, updateCounter } = props;
@@ -26,7 +26,7 @@ const selector = state => ({
 });
 
 const dispatcher = dispatch => ({
-  updateCounter: count => dispatch(updateCounterAndPersist(count))
+  updateCounter: count => dispatch(updateCounterAction(count))
 });
 
 export default connect(selector, dispatcher)(App);
