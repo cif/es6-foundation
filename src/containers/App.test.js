@@ -1,4 +1,4 @@
-import assert from 'assert';
+import test from 'ava';
 import React from 'react';
 import $ from 'teaspoon';
 import { noCallThru } from 'proxyquire';
@@ -23,15 +23,13 @@ const mockProps = props => ({
   ...props
 });
 
-describe('src/containers/App', () => {
-  it('should render the counter component and pass correct props', () => {
-    const props = mockProps();
-    const $counter = $(<App {...props} />)
-      .render(true)
-      .find(Counter);
+test('should render the counter component and pass correct props', (t) => {
+  const props = mockProps();
+  const $counter = $(<App {...props} />)
+    .render(true)
+    .find(Counter);
 
-    assert.equal($counter.length, 1, 'counter component not rendered');
-    assert.equal($counter.props('count'), props.count, 'count property not passed');
-    assert.equal($counter.props('onClick'), props.updateCounter, 'onClick property not passed');
-  });
+  t.is($counter.length, 1, 'counter component not rendered');
+  t.is($counter.props('count'), props.count, 'count property not passed');
+  t.is($counter.props('onClick'), props.updateCounter, 'onClick property not passed');
 });

@@ -1,4 +1,4 @@
-import assert from 'assert';
+import test from 'ava';
 import React from 'react';
 import { spy } from 'sinon';
 import $ from 'teaspoon';
@@ -12,37 +12,36 @@ const mockProps = props => ({
   ...props
 });
 
-describe('src/components/Counter', () => {
-  it('should render two buttons and span containing the count', () => {
-    const props = mockProps();
-    const $Counter = $(<Counter {...props} />)
-      .shallowRender();
-    const $buttons = $Counter.find('button');
-    const $span = $Counter.first('span');
 
-    assert.equal($buttons.length, 2, 'missing two rendered buttons');
-    assert.equal($span.text(), props.count, 'missing count props in the span tag');
-  });
+test('render two buttons and span containing the count', (t) => {
+  const props = mockProps();
+  const $Counter = $(<Counter {...props} />)
+    .shallowRender();
+  const $buttons = $Counter.find('button');
+  const $span = $Counter.first('span');
 
-  it('should call onClick prop with increment and decremented count value', () => {
-    const props = mockProps();
-    const $Counter = $(<Counter {...props} />)
-      .shallowRender();
+  t.is($buttons.length, 2, 'missing two rendered buttons');
+  t.is($span.text(), props.count.toString(), 'missing count props in the span tag');
+});
 
-    $Counter.first('button[data-test=inc]')
-      .trigger('click');
+test('call onClick prop with increment and decremented count value', (t) => {
+  const props = mockProps();
+  const $Counter = $(<Counter {...props} />)
+    .shallowRender();
 
-    assert(
-      props.onClick.calledWith($Counter.props('count') + 1),
-      'onclick func with increment count not called or called incorrectly'
-    );
+  $Counter.first('button[data-test=inc]')
+    .trigger('click');
 
-    $Counter.first('button[data-test=dec]')
-      .trigger('click');
+  t.truthy(
+    props.onClick.calledWith($Counter.props('count') + 1),
+    'onclick func with increment count not called or called incorrectly'
+  );
 
-    assert(
-      props.onClick.calledWith($Counter.props('count') - 1),
-      'onclick func with decrement count not called or called incorrectly'
-    );
-  });
+  $Counter.first('button[data-test=dec]')
+    .trigger('click');
+
+  t.truthy(
+    props.onClick.calledWith($Counter.props('count') - 1),
+    'onclick func with decrement count not called or called incorrectly'
+  );
 });
