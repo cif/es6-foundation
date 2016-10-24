@@ -6,4 +6,4 @@ This is my light weight, lightly opinionated personal starting point of choice.
 ### What's in the box?
 * Webpack + Babel + Hot-reloader
 * React + Redux
-* Eslint (airbnb presets) + Mocha + Teaspoon + Proxyquire + Sinon
+* Eslint (airbnb preset) + AVA + Teaspoon + Proxyquire + Sinon
