@@ -37,7 +37,7 @@ var config = {
 };
 
 server = new WebpackDevServer(webpack(config), {
-  contentBase: 'public/',
+  contentBase: 'dist/',
   hot: true,
   historyApiFallback: true,
   stats: {
